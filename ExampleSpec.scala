@@ -1,4 +1,3 @@
-import collection.mutable.Stack
 import org.scalatest._
 
 object P01{
