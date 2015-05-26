@@ -19,6 +19,9 @@ object P04{
 		l.foreach(x=>n += 1)
 		n
 	}
+	def length1[A](l:List[A]):Int = {
+		(0 /: l){(x,y)=>x+1}
+	}
 }
 
 object P05{
@@ -58,6 +61,9 @@ class ExampleSpec extends FunSpec with Matchers {
 		it("P04--Find the number of elements"){
 			val v = P04.length(List(1,1,2,3,5,8))
 			v should be (6)
+			
+			val v1 = P04.length1(List(1,1,2,3,5,8))
+			v1 should be (6)
 		}
 		
 		it("P05--Reverse a list"){
