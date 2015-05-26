@@ -36,7 +36,7 @@ object P05{
 		(l :\ List[A]()){(x,y)=>y :+x}
 	}
 }
-class ExampleSpec extends FunSpec with Matchers {
+class Scala99Spec extends FunSpec with Matchers {
 
 	describe ("Scala 99 Test"){
 		it("P01--Find the last element of a list"){
