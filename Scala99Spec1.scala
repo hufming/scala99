@@ -21,6 +21,41 @@ object P08{
 	}
 }
 
+object P09{
+	def getduplist[A](l:List[A]):List[A] = {
+		val head = l.head
+		val tail = l.dropWhile(_ == head)
+		l.diff(tail)
+	}
+	def pack[A](l:List[A]):List[List[A]] = {
+		var ls = List[List[A]]()
+		var tail = l
+		while(tail != Nil)
+		{
+			val v = getduplist(tail)
+			ls = v::ls
+			tail = tail.diff(v)
+		}
+		ls.reverse	
+	}
+	def spanlist[A](l:List[A]) = {
+		val head = l.head
+		val tail = l.dropWhile(_ == head)
+		(l.diff(tail),tail)
+	} 
+	def pack1[A](l:List[A]):List[List[A]] = {
+		if(l.isEmpty) List[List[A]]()
+		else
+		{
+			val v = spanlist(l)
+			if (v._2 == Nil) List(v._1)
+			else
+				v._1::pack1(v._2)
+		}
+			
+	}
+}
+
 class Scala99Spec1 extends FunSpec with Matchers {
 
 	describe ("Scala 99 Test"){
@@ -39,6 +74,19 @@ class Scala99Spec1 extends FunSpec with Matchers {
 			import P08._
 			val v = compress(List('a,'a,'a,'a,'b,'c,'c,'a,'a,'d,'e,'e,'e,'e))
 			v should be (List('a,'b,'c,'a,'d,'e))
+		}
+		it("P09-1--Get first consecutive duplicates list"){
+			import P09._
+			val v = getduplist(List(1,1,2,3))
+			v should be (List(1,1))
+		}
+		it("P09-Pack consecutive duplicates element into separate sublists"){
+			import P09._
+			val v = pack(List('a,'a,'a,'a,'b,'c,'c,'a,'a,'d,'e,'e,'e,'e))
+			v should be (List(List('a,'a,'a,'a),List('b),List('c,'c),List('a,'a),List('d),List('e,'e,'e,'e)))
+		
+			val v1 = pack1(List('a,'a,'a,'a,'b,'c,'c,'a,'a,'d,'e,'e,'e,'e))
+			v1 should be (List(List('a,'a,'a,'a),List('b),List('c,'c),List('a,'a),List('d),List('e,'e,'e,'e)))
 		}
 
   	}
