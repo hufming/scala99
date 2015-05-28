@@ -56,6 +56,12 @@ object P09{
 	}
 }
 
+object P10{
+	def encode[A](l:List[A]) = {
+		P09.pack(l).map(v=>(v.size,v.head))		
+	}
+}
+
 class Scala99Spec1 extends FunSpec with Matchers {
 
 	describe ("Scala 99 Test"){
@@ -87,6 +93,12 @@ class Scala99Spec1 extends FunSpec with Matchers {
 		
 			val v1 = pack1(List('a,'a,'a,'a,'b,'c,'c,'a,'a,'d,'e,'e,'e,'e))
 			v1 should be (List(List('a,'a,'a,'a),List('b),List('c,'c),List('a,'a),List('d),List('e,'e,'e,'e)))
+		}
+		
+		it("P10--Run-Length encodeing of a list"){
+			import P10._
+			val v = encode(List('a,'a,'a,'a,'b,'c,'c,'a,'a,'d,'e,'e,'e,'e))
+			v should be (List((4,'a),(1,'b),(2,'c),(2,'a),(1,'d),(4,'e)))
 		}
 
   	}
