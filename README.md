@@ -5,7 +5,7 @@ exercises of scala 99
 
 scalac -cp scalatest_2.10-2.2.4.jar Scala99Spec.scala
 
-scala -cp scalatest_2.10-2.2.4.jar Scla99Spec
+scala -cp scalatest_2.10-2.2.4.jar org.scalatest.run Scla99Spec
 
 #Content
 
