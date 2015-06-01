@@ -6,10 +6,21 @@ object P12{
 	}
 }
 
+object P13{
+
+	def encodeDirect[A](l:List[A]):List[(Int,A)] = {
+		if (l.isEmpty) Nil
+		else
+		{
+			val (head,tail) = l.span(_ == l.head)
+			(head.length,l.head)::encodeDirect(tail)
+		}
+	}
+}
 object P14{
 	
 	def duplicateN[A](n:Int,l:List[A]):List[A] = {
-		l.flatMap(v=>List.make(n,v))
+		l.flatMap(v=>(1 to n).toList.map(_=> v))
 	}
 	def duplicate[A](l:List[A]):List[A] = {
 		duplicateN(2,l)
@@ -25,6 +36,12 @@ class Scala99Spec2 extends FunSpec with Matchers {
 			v should be (List('a,'a,'a,'a,'b,'c,'c,'d,'e,'e,'e,'e))
   		}
 		
+		it("P13-- Run-length encoding of a list (direct solution)"){
+			import P13._
+			val v = encodeDirect(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+			v should be (List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
+		}
+
 		it("P14--Duplicate the elements of a list"){
 			import P14._
 			val v = duplicate(List('a,'b,'c,'d))
