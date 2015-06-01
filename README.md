@@ -13,4 +13,4 @@ P01~P05 ==> Scala99Spec.scala
 
 P06~P11 ==> Scala99Spec1.scala
 
-P12     ==> Scala99Spec2.scala
+P12~P15 ==> Scala99Spec2.scala
