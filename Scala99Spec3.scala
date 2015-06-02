@@ -10,6 +10,10 @@ object P17{
 	def split[A](n:Int,l:List[A]) = (l.take(n),l.drop(n))
 }
 
+object P18{
+	def slice[A](start:Int,end:Int,l:List[A]) = l.drop(start).take(end-start)
+}
+
 class Scala99Spec3 extends FunSpec with Matchers {
 
 	describe ("Scala 99 Test--Part3"){
@@ -23,6 +27,12 @@ class Scala99Spec3 extends FunSpec with Matchers {
 			import P17._
 			val v = split(3,List('a,'b,'c,'d,'e,'f,'g,'h,'i,'j,'k))
 			v should be (List('a,'b,'c),List('d,'e,'f,'g,'h,'i,'j,'k))
+		}
+
+		it("P18--Extract a slice from a list"){
+			import P18._
+			val v = slice(3, 7, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
+			v should be (List('d, 'e, 'f, 'g))
 		}
 
   	}
