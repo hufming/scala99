@@ -23,6 +23,13 @@ object P19{
 	}
 }
 
+object P20{
+	def removeAt[A](n:Int,l:List[A]) = {
+		val ls = l.zipWithIndex
+		(ls.filterNot(v=>v._2 == n).map(v =>v._1),ls.find(v=>v._2==n).get._1)
+	}
+}
+
 class Scala99Spec3 extends FunSpec with Matchers {
 
 	describe ("Scala 99 Test--Part3"){
@@ -50,6 +57,12 @@ class Scala99Spec3 extends FunSpec with Matchers {
 			v should be (List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c))
 			val v1 = rotate(-2, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
 			v1 should be (List('j, 'k, 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i))
+		}
+
+		it("P20-- Remove the Kth element from a list"){
+			import P20._
+			val v = removeAt(1, List('a, 'b, 'c, 'd))
+			v should be ((List('a, 'c, 'd),'b))
 		}
 
   	}
