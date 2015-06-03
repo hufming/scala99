@@ -14,6 +14,15 @@ object P18{
 	def slice[A](start:Int,end:Int,l:List[A]) = l.drop(start).take(end-start)
 }
 
+object P19{
+	def rotate[A](n:Int,l:List[A]) = {
+		var position = n
+		if (n < 0) position = l.length + n
+		val v = l.splitAt(position)
+		v._2:::v._1
+	}
+}
+
 class Scala99Spec3 extends FunSpec with Matchers {
 
 	describe ("Scala 99 Test--Part3"){
@@ -33,6 +42,14 @@ class Scala99Spec3 extends FunSpec with Matchers {
 			import P18._
 			val v = slice(3, 7, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
 			v should be (List('d, 'e, 'f, 'g))
+		}
+		
+		it("P19--Rotate a list N places to the left"){
+			import P19._
+			val v = rotate(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
+			v should be (List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c))
+			val v1 = rotate(-2, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
+			v1 should be (List('j, 'k, 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i))
 		}
 
   	}
