@@ -31,6 +31,16 @@ object P31{
 			case 3 => true
 			case _ => (2 to math.sqrt(x).toInt).toList.forall(x % _ != 0)
 		}
+		
+		def isPrime2:Boolean = x match{
+			case 1 => false
+			case 2 => true
+			case 3 => true
+			case _ => getPrimes(math.sqrt(x).toInt).forall(x % _ != 0)
+		}
+		def getPrimes(max:Int)={
+				(2 to max).toList.filter(_.isPrime2)			
+		}
 	}
 	
 }
@@ -66,6 +76,9 @@ class Scala99Spec5 extends FunSpec with Matchers {
 			import P31._
 			2.isPrime should be (true)
 			7.isPrime should be (true)
+			7.isPrime2 should be (true)
+			457.isPrime2 should be (true)
+			100.isPrime2 should be (false)
 
 		}
 
