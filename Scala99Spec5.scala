@@ -22,6 +22,18 @@ object P26{
 	
 }
 
+object P31{
+	implicit class IntExt(val x:Int){
+		import scala.math
+		def isPrime:Boolean = x match{
+			case 1 => false
+			case 2 => true
+			case 3 => true
+			case _ => (2 to math.sqrt(x).toInt).toList.forall(x % _ != 0)
+		}
+	}
+	
+}
 
 
 
@@ -48,6 +60,13 @@ class Scala99Spec5 extends FunSpec with Matchers {
 			v1.length should be (perm(ls.length,3)/perm(3,3)) 
 
 			
+		}
+
+		it("P31--Determine whether a given integer number is prime"){
+			import P31._
+			2.isPrime should be (true)
+			7.isPrime should be (true)
+
 		}
 
 		
