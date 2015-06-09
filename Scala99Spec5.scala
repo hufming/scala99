@@ -25,13 +25,14 @@ object P26{
 object P31{
 	implicit class IntExt(val x:Int){
 		import scala.math
+		//method1
 		def isPrime:Boolean = x match{
 			case 1 => false
 			case 2 => true
 			case 3 => true
 			case _ => (2 to math.sqrt(x).toInt).toList.forall(x % _ != 0)
 		}
-		
+		//method2
 		def isPrime2:Boolean = x match{
 			case 1 => false
 			case 2 => true
@@ -40,6 +41,21 @@ object P31{
 		}
 		def getPrimes(max:Int)={
 				(2 to max).toList.filter(_.isPrime2)			
+		}
+		//method 3
+		var primes=List(2,3)
+		def buildPrimes(max:Int):List[Int]={
+			if(primes.max<max){
+				(primes.max+1 to max).toList.foreach(x=>if(x.isPrime3) primes=x::primes)
+			}
+			primes.filter(_<=max)
+		}
+		
+		def isPrime3:Boolean = x match{
+			case 1 => false
+			case 2 => true
+			case 3 => true
+			case _ => buildPrimes(math.sqrt(x).toInt).forall(x % _ != 0)
 		}
 	}
 	
@@ -79,6 +95,8 @@ class Scala99Spec5 extends FunSpec with Matchers {
 			7.isPrime2 should be (true)
 			457.isPrime2 should be (true)
 			100.isPrime2 should be (false)
+			457.isPrime3 should be (true)
+			5153.isPrime3 should be (true)
 
 		}
 
