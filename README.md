@@ -19,4 +19,4 @@ P16~P20 ==> Scala99Spec3.scala
 
 P21~P25 ==> Scala99Spec4.scala
 
-P26,P31,P32 ==> Scala99Spec5.scala
+P26,P31~P35 ==> Scala99Spec5.scala

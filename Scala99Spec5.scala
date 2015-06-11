@@ -82,6 +82,31 @@ object P33{
 	}
 }
 
+object P34{
+	implicit class IntTotient(val x:Int){
+		import P33._
+		def totient:Int = {
+			(1 to x).filter(_.isCoprimeTo(x)).length
+		}
+	}
+}
+
+object P35{
+	implicit class IntprimeFactors(val x:Int){
+		import P31._		
+		def primes:List[Int]= (2 to x).toList.filter(_.isPrime3)
+  		def minPrimeFactor:Int = primes.find(x % _ == 0).get
+		def primeFactors:List[Int] = {
+			if(x.isPrime3)
+			{
+				return List(x)
+			}
+			x.minPrimeFactor::(x/x.minPrimeFactor).toInt.primeFactors
+		}
+	}
+	
+}
+
 class Scala99Spec5 extends FunSpec with Matchers {
 
 	describe ("Scala 99 Test--Part5"){
@@ -128,6 +153,16 @@ class Scala99Spec5 extends FunSpec with Matchers {
 			import P33._
 			35.isCoprimeTo(64) should be (true)
 		}
+
+		it("P34--Calculate Euler's totient function"){
+			import P34._
+			10.totient should be (4)
+		}
+			
+		it("P35--Determine the prime factors of a given positive integer"){
+			import P35._
+			315.primeFactors should be (List(3,3,5,7))
+		}		
 
 		
   	}
