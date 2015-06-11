@@ -75,6 +75,13 @@ object P32{
 	}
 }
 
+object P33{
+	implicit class IntCoprime(val x:Int){
+		import P32._
+		def isCoprimeTo(a:Int):Boolean = 1 == gcd(x,a)
+	}
+}
+
 class Scala99Spec5 extends FunSpec with Matchers {
 
 	describe ("Scala 99 Test--Part5"){
@@ -115,6 +122,11 @@ class Scala99Spec5 extends FunSpec with Matchers {
 		it("P32--Determine the greatest common divisor of two positive integer numbers"){
 			import P32._
 			gcd(36,63) should be (9)
+		}
+		
+		it("P33--Determine whether two positive integer numbers are coprime"){
+			import P33._
+			35.isCoprimeTo(64) should be (true)
 		}
 
 		
