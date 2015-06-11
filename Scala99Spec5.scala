@@ -62,6 +62,18 @@ object P31{
 }
 
 
+object P32{
+	def gcd(a:Int,b:Int):Int={
+		if(a < b) return gcd(b,a)
+		val c = a % b
+		c match{
+			case 0 =>b
+			case r =>gcd(b,r)
+		}
+		
+		
+	}
+}
 
 class Scala99Spec5 extends FunSpec with Matchers {
 
@@ -98,6 +110,11 @@ class Scala99Spec5 extends FunSpec with Matchers {
 			457.isPrime3 should be (true)
 			5153.isPrime3 should be (true)
 
+		}
+		
+		it("P32--Determine the greatest common divisor of two positive integer numbers"){
+			import P32._
+			gcd(36,63) should be (9)
 		}
 
 		
