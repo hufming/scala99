@@ -97,7 +97,7 @@ object P35{
 		def primes:List[Int]= (2 to x).toList.filter(_.isPrime3)
   		def minPrimeFactor:Int = primes.find(x % _ == 0).get
 		def primeFactors:List[Int] = {
-			if(x.isPrime3)
+			if(x.isPrime)
 			{
 				return List(x)
 			}
@@ -110,6 +110,14 @@ object P35{
 	}
 	
 }
+
+object P37{
+	import P35._
+	def phi(x:Int):Int = {
+		x.primeFactorMultiplicity.foldLeft(1.0){(y,x)=>y*(x._1-1)*math.pow(x._1,x._2-1)}.toInt
+	}
+}
+
 
 class Scala99Spec5 extends FunSpec with Matchers {
 
@@ -171,6 +179,24 @@ class Scala99Spec5 extends FunSpec with Matchers {
 		it("P36--Determine the prime factors of a given positive integer (2)"){
 			import P35._
 			315.primeFactorMultiplicity should be (List((3,2), (5,1), (7,1)))	
+		}
+
+		it("P37-- Calculate Euler's totient function phi(m) (improved)"){
+			import P37._
+			phi(10) should be (4)
+		}
+		
+		it("P38-- Compare the two methods of calculating Euler's totient function"){
+			import P34._
+			import P37._
+			val t1 = System.currentTimeMillis()
+			val v1 = 10090.totient
+			println("P34 cost "+(System.currentTimeMillis()-t1)+"ms")
+			
+			val t2 = System.currentTimeMillis()
+			val v2 = phi(10090)
+			println("P37 cost "+(System.currentTimeMillis()-t2)+"ms")
+			v1 should be (v2)
 		}		
 
 		
