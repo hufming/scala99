@@ -103,6 +103,10 @@ object P35{
 			}
 			x.minPrimeFactor::(x/x.minPrimeFactor).toInt.primeFactors
 		}
+		def primeFactorMultiplicity:List[(Int,Int)]={
+			val primeFactors = x.primeFactors
+			primeFactors.distinct.map(v=>(v,primeFactors.count(_==v)))
+		}
 	}
 	
 }
@@ -162,6 +166,11 @@ class Scala99Spec5 extends FunSpec with Matchers {
 		it("P35--Determine the prime factors of a given positive integer"){
 			import P35._
 			315.primeFactors should be (List(3,3,5,7))
+		}
+		
+		it("P36--Determine the prime factors of a given positive integer (2)"){
+			import P35._
+			315.primeFactorMultiplicity should be (List((3,2), (5,1), (7,1)))	
 		}		
 
 		
