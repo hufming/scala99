@@ -118,7 +118,14 @@ object P37{
 	}
 }
 
-
+object tools{
+	def timestat[A](tips:String)(f: =>A):A={
+		val start = System.currentTimeMillis()
+		val ret=f
+		println(tips+ " cost "+(System.currentTimeMillis()-start)+"ms")
+		ret
+	}
+}
 class Scala99Spec5 extends FunSpec with Matchers {
 
 	describe ("Scala 99 Test--Part5"){
@@ -187,16 +194,17 @@ class Scala99Spec5 extends FunSpec with Matchers {
 		}
 		
 		it("P38-- Compare the two methods of calculating Euler's totient function"){
+			import P31._
 			import P34._
 			import P37._
-			val t1 = System.currentTimeMillis()
-			val v1 = 10090.totient
-			println("P34 cost "+(System.currentTimeMillis()-t1)+"ms")
+			import tools._
+			val v1 = timestat("P34"){10090.totient}
 			
-			val t2 = System.currentTimeMillis()
-			val v2 = phi(10090)
-			println("P37 cost "+(System.currentTimeMillis()-t2)+"ms")
+			val v2 = timestat("P37"){phi(10090)}
 			v1 should be (v2)
+			timestat("prime"){49999.isPrime} should be (true)
+			timestat("prime2"){49999.isPrime2} should be (true)
+			timestat("prime3"){49999.isPrime3} should be (true)
 		}		
 
 		
