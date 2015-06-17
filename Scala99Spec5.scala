@@ -57,6 +57,10 @@ object P31{
 			case 3 => true
 			case _ => buildPrimes(math.sqrt(x).toInt).forall(x % _ != 0)
 		}
+		
+		//method 4
+		val primes4 = Stream.cons(2,Stream.from(3,2).filter(_.isPrime4))
+		def isPrime4:Boolean = primes4.takeWhile(_ <=math.sqrt(x).toInt).forall(x % _ !=0)
 	}
 	
 }
@@ -94,10 +98,10 @@ object P34{
 object P35{
 	implicit class IntprimeFactors(val x:Int){
 		import P31._		
-		def primes:List[Int]= (2 to x).toList.filter(_.isPrime3)
+		def primes:List[Int]= (2 to x).toList.filter(_.isPrime4)
   		def minPrimeFactor:Int = primes.find(x % _ == 0).get
 		def primeFactors:List[Int] = {
-			if(x.isPrime)
+			if(x.isPrime4)
 			{
 				return List(x)
 			}
@@ -116,6 +120,11 @@ object P37{
 	def phi(x:Int):Int = {
 		x.primeFactorMultiplicity.foldLeft(1.0){(y,x)=>y*(x._1-1)*math.pow(x._1,x._2-1)}.toInt
 	}
+}
+
+object P39{
+	import P31._
+	def listPrimesinRange(r:Range)=r.toList.filter(_.isPrime)
 }
 
 object tools{
@@ -160,7 +169,7 @@ class Scala99Spec5 extends FunSpec with Matchers {
 			100.isPrime2 should be (false)
 			457.isPrime3 should be (true)
 			5153.isPrime3 should be (true)
-
+			
 		}
 		
 		it("P32--Determine the greatest common divisor of two positive integer numbers"){
@@ -205,6 +214,11 @@ class Scala99Spec5 extends FunSpec with Matchers {
 			timestat("prime"){49999.isPrime} should be (true)
 			timestat("prime2"){49999.isPrime2} should be (true)
 			timestat("prime3"){49999.isPrime3} should be (true)
+			timestat("prime4"){49999.isPrime4} should be (true)
+		}
+		it("P39-- A list of prime numbers"){
+			import P39._
+			listPrimesinRange(7 to 31) should be (List(7, 11, 13, 17, 19, 23, 29, 31))
 		}		
 
 		
