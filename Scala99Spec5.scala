@@ -127,6 +127,18 @@ object P39{
 	def listPrimesinRange(r:Range)=r.toList.filter(_.isPrime)
 }
 
+
+object P40{
+	implicit class Goldbach(val x:Int){
+		import P31._
+		
+		val primes = Stream.cons(2,Stream.from(3,2).filter(_.isPrime4))
+		def goldbach:(Int,Int)={
+			val minPrime = primes.takeWhile(_<x).find(v=>(x-v).isPrime)
+			minPrime.fold((0,0))(v=>(v,x-v))
+		}
+	}
+}
 object tools{
 	def timestat[A](tips:String)(f: =>A):A={
 		val start = System.currentTimeMillis()
@@ -219,6 +231,11 @@ class Scala99Spec5 extends FunSpec with Matchers {
 		it("P39-- A list of prime numbers"){
 			import P39._
 			listPrimesinRange(7 to 31) should be (List(7, 11, 13, 17, 19, 23, 29, 31))
+		}
+		
+		it("P40--Goldbach's conjecture"){
+			import P40._
+			28.goldbach should be ((5,23))
 		}		
 
 		
